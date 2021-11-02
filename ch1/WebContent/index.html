@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a href="user/register.html">회원가입</a>
+<!-- method 생략가능 (default : get) 
+	get은 주소로 나타낸다.
+	post는 주소를 나타내지 않는다.
+	정보의 중요도에 따라서 -->
+<!--  <form action="get.jsp" method="get">-->
+<form action="get.jsp" method="post">
+	<div>
+	<label for="">이름</label>
+	<input type="text" name="username"/>
+	</div>
+	<div>
+	<label for="">나이</label>
+	<input type="text" name="age"/>
+	</div>
+	<!-- 이름과 나이가 주소줄에서 &으로 연결된다. -->
+	<input type="submit" value="전송" />
+	
+	
+</form>
+</body>
+</html>
