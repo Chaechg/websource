@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-<form action="/InfoServlet" method="post">
+<form action="/info" method="post">
 <!--form의 method를 post로 변경함으로써, 주소줄에는 내용이 표시되지 않는다. 그러나 한글 깨짐 -->
       <div>
         <label for="userid">아이디</label>
