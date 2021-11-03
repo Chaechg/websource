@@ -13,3 +13,8 @@ select * from member where userid='hong123' and password='hong';
 select * from member;
 
 alter table member modify (gender nvarchar2(10));
+
+--비밀번호 변경 --전체변경
+update member set password='변경비밀번호'; 
+--비밀번호 변경 --특정만 변경
+update member set password='변경비밀번호' where userid='아이디' and password='현재비밀번호';
