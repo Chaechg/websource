@@ -1,3 +1,5 @@
+<%@page import="book.domain.BookDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 %>
@@ -32,7 +34,7 @@
 		String tab = request.getParameter("tab");
 
 	if (tab == null) {
-		tab = "insert";
+		tab = "search";
 	}
 	%>
 	<script>
@@ -45,7 +47,7 @@ $(function () {
 
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">BOOK / JDBC / 모델 1</h1>
+			<h1 class="display-4">BOOK / JDBC / 모델 2</h1>
 			<p class="lead">도서 정보 입력/수정/삭제/조회</p>
 		</div>
 	</div>
@@ -77,24 +79,66 @@ $(function () {
 			</div>
 			<div class="col-8">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="insert" role="tabpanel"
+					<div class="tab-pane fade" id="insert" role="tabpanel"
 						aria-labelledby="list-insert-list"
 					><%@include file="/view/insert.jsp"%></div>
 					<div class="tab-pane fade" id="all" role="tabpanel"
 						aria-labelledby="list-all-list"
-					><%@include file="/view/all.jsp"%></div>
+					></div>
 					<div class="tab-pane fade" id="delete" role="tabpanel"
 						aria-labelledby="list-delete-list"
 					><%@include file="/view/delete.jsp"%></div>
 					<div class="tab-pane fade" id="modify" role="tabpanel"
 						aria-labelledby="list-modify-list"
 					><%@include file="/view/modify.jsp"%></div>
+					<%
+						List<BookDTO> searchList = (List<BookDTO>) request.getAttribute("list");
+
+					if (searchList.isEmpty()) {
+					%>
+
+
 					<div class="tab-pane fade" id="search" role="tabpanel"
 						aria-labelledby="list-search-list"
 					><%@include file="/view/search.jsp"%></div>
+					<%
+						} else {
+					%>
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">code</th>
+								<th scope="col">title</th>
+								<th scope="col">writer</th>
+								<th scope="col">price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (BookDTO dto : searchList) {
+							%>
+							<tr>
+								<th scope="row"><%=dto.getCode()%></th>
+								<td><%=dto.getTitle()%></td>
+								<td><%=dto.getWriter()%></td>
+								<td><%=dto.getPrice()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>
 	</div>
+	<<script>
+		$('#list-tab a[href="#all"]').click(function () {
+			location.href = "/list.do";
+		});
+	</script>
 </body>
 </html>

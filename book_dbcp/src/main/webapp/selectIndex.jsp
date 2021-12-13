@@ -1,3 +1,5 @@
+<%@page import="book.domain.BookDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 %>
@@ -29,23 +31,23 @@
 </head>
 <body>
 	<%
-		String tab = request.getParameter("tab");
+	String tab = request.getParameter("tab");
 
 	if (tab == null) {
-		tab = "insert";
+		tab = "all";
 	}
 	%>
 	<script>
 $(function () {
-	let selectTab = '<%=tab%>
-		';
+	//자동정렬할 때 단축키 쓰면 좀 전처럼 코드가 바꿔요..그래서 탭 값을 제대로 인식못했네요
+	let selectTab = '<%=tab%>'; 
 			$("#list-tab a[href='#" + selectTab + "']").tab('show');
 		})
 	</script>
 
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">BOOK / JDBC / 모델 1</h1>
+			<h1 class="display-4">BOOK / JDBC / 모델 2</h1>
 			<p class="lead">도서 정보 입력/수정/삭제/조회</p>
 		</div>
 	</div>
@@ -77,12 +79,41 @@ $(function () {
 			</div>
 			<div class="col-8">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="insert" role="tabpanel"
+					<div class="tab-pane fade" id="insert" role="tabpanel"
 						aria-labelledby="list-insert-list"
 					><%@include file="/view/insert.jsp"%></div>
 					<div class="tab-pane fade" id="all" role="tabpanel"
 						aria-labelledby="list-all-list"
-					><%@include file="/view/all.jsp"%></div>
+					>
+						<%
+						List<BookDTO> list = (List<BookDTO>) request.getAttribute("list");
+						%>
+						<%--도사 전체 조회 --%>
+						<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">code</th>
+									<th scope="col">title</th>
+									<th scope="col">writer</th>
+									<th scope="col">price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								for (BookDTO dto : list) {
+								%>
+								<tr>
+									<th scope="row"><%=dto.getCode()%></th>
+									<td><%=dto.getTitle()%></td>
+									<td><%=dto.getWriter()%></td>
+									<td><%=dto.getPrice()%></td>
+								</tr>
+								<%
+								}
+								%>
+							</tbody>
+						</table>
+					</div>
 					<div class="tab-pane fade" id="delete" role="tabpanel"
 						aria-labelledby="list-delete-list"
 					><%@include file="/view/delete.jsp"%></div>
@@ -96,5 +127,11 @@ $(function () {
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		$('#list-tab a[href="#all"]').click(function() {
+			location.href = "/list.do";
+		});
+	</script>
 </body>
 </html>

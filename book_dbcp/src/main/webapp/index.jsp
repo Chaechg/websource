@@ -29,7 +29,7 @@
 </head>
 <body>
 	<%
-		String tab = request.getParameter("tab");
+	String tab = request.getParameter("tab");
 
 	if (tab == null) {
 		tab = "insert";
@@ -37,15 +37,14 @@
 	%>
 	<script>
 $(function () {
-	let selectTab = '<%=tab%>
-		';
+	let selectTab = '<%=tab%>';
 			$("#list-tab a[href='#" + selectTab + "']").tab('show');
 		})
 	</script>
 
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">BOOK / JDBC / 모델 1</h1>
+			<h1 class="display-4">BOOK / JDBC / 모델 2</h1>
 			<p class="lead">도서 정보 입력/수정/삭제/조회</p>
 		</div>
 	</div>
@@ -80,9 +79,6 @@ $(function () {
 					<div class="tab-pane fade show active" id="insert" role="tabpanel"
 						aria-labelledby="list-insert-list"
 					><%@include file="/view/insert.jsp"%></div>
-					<div class="tab-pane fade" id="all" role="tabpanel"
-						aria-labelledby="list-all-list"
-					><%@include file="/view/all.jsp"%></div>
 					<div class="tab-pane fade" id="delete" role="tabpanel"
 						aria-labelledby="list-delete-list"
 					><%@include file="/view/delete.jsp"%></div>
@@ -96,5 +92,12 @@ $(function () {
 			</div>
 		</div>
 	</div>
+	<script>
+	$(function(){
+		$("#list-tab a[href='#all']").click(function(){
+			location.href = "/list.do";
+		})
+	})
+	</script>
 </body>
 </html>
