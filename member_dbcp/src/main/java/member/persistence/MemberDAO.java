@@ -117,6 +117,33 @@ public class MemberDAO {
 		}
 		return registerFlag;
 	}
+	
+	// 중복 아이디 검사
+	public boolean idCheck(String userid) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean dupFlag = true;
+		
+		try {
+			
+			String sql = "select * from member where userid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery(); //rs는 sql문 결과가 담긴다. => true
+			
+			if (rs.next()) {
+				dupFlag = false; //사용할 수 없음을 의미
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return dupFlag;
+	}
 }
 
 

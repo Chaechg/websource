@@ -6,7 +6,16 @@ $(function(){
 		rules:{
 			userid:{
 				required : true,
-				validId : true
+				validId : true,
+				remote : { 	//ajax 비동기식으로 도는 코드
+					url : "/dupId.do",
+					type : "post",
+					data : {
+						userid:function(){
+							return $("#userid").val();
+						}
+					}
+				}
 			},
 			password:{
 				required : true,
@@ -30,7 +39,8 @@ $(function(){
 		},
 		messages:{
 			userid:{
-				required : "아이디는 필수 입력 요소입니다."
+				required : "아이디는 필수 입력 요소입니다.",
+				remote : "이 아이디는 사용중입니다."
 			},
 			password:{
 				required : "비밀번호는 필수 입력 요소입니다."
