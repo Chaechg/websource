@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp" %>
 <%
 //세쎤에서 로그인 정보 가져오기
-	MemberDTO loginDto = (MemberDTO) session.getAttribute("loginDto");
+	//MemberDTO loginDto = (MemberDTO) session.getAttribute("loginDto");
 %>
 <form id="modifyform" action="/modify.do" method="post">
 	<div class="card"  style="width: 40rem;margin:40px auto;">	
@@ -39,7 +39,8 @@
 </form>
 <%--로그인 후 메뉴 --%>
 <script>
-		let name = '<%=loginDto.getName()%>';
+		<%-- let name = '<%=loginDto.getName()%>'; --%>
+		let name = '${loginDto.name}';
 </script>
 <script src="../js/menu.js"></script>
 <%-- 정보수정 들어왔으니 정보수정 버튼 없애기 --%>
